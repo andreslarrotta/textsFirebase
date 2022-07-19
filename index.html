@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo Firebase</title>
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+  <body>
+    <div id="app">
+      <button id="button-login">Login with Google</button>
+      <button id="button-logout">Logout</button>
+      <div class="hermosa">
+        <h1>Estado</h1>
+      </div>
+      <form id="todo-form" class="hidden">
+        <div id="user-info"></div>
+        <input
+          id="todo-input"
+          type="text"
+          placeholder="Todo"
+          autocomplete="off"
+        />
+      </form>
+
+      <div id="todos-container"></div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+
+    <script>
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBmXIhFOJkXH81U6OqdE46djZFcFxJLK38",
+        authDomain: "todo-43b73.firebaseapp.com",
+        projectId: "todo-43b73",
+        storageBucket: "todo-43b73.appspot.com",
+        messagingSenderId: "880717773429",
+        appId: "1:880717773429:web:2a662921507e75a44f563c",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="./auth.js" type="module"></script>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
