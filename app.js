@@ -1,43 +1,67 @@
 // jshint esversion: 8
 import { login, logout } from "./auth.js";
+import { getItems } from "./firestore.js";
 
 let currentUser;
 
 const buttonLogin = document.getElementById("button-login");
 const buttonLogout = document.getElementById("button-logout");
-
+const textContainer = document.getElementById("texts-container");
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        /* // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        var uid = user.uid;
-        currentUser = user;
-        init(); */
-        document.querySelector('.hermosa').setAttribute('style', 'background:purple;color:pink')
-        document.querySelector('.hermosa').innerHTML = `<h1>${user.displayName}</h1>`
-    } else {
-        document.querySelector('.hermosa').setAttribute('style', 'background:red;color:white')
-        document.querySelector('.hermosa').innerHTML = `<h1>No login</h1>`
+        init();
+    }
+    else {
+        console.log('no esta logeado')
+        textContainer.innerHTML = ''
     }
 });
 
-buttonLogin.addEventListener("click", async (e) => {
+buttonLogin.addEventListener("click", async () => {
     try {
         currentUser = await login();
         console.log('info user', currentUser)
-        /* init(); */
+        init()
     } catch (error) {
         console.error(error);
     }
 });
 
 buttonLogout.addEventListener("click", (e) => {
-    logout();
-    console.log('hermosa nos deslogueamos')
-    //localStorage.removeItem("user");
-    /* buttonLogin.classList.remove("hidden");
-    buttonLogout.classList.add("hidden");
-    todoForm.classList.add("hidden");
-    todosContainer.innerHTML = ""; */
+    e.target.classList.toggle('hola')
+    logout()
 });
+
+/* 
+Version es6
+*/
+const printHtml = (texts) => {
+    let htmlText = "";
+    texts.forEach((text) => {
+        htmlText += `
+        <div>
+            <h1>${text.value}</h1>
+        </div>`
+    });
+    textContainer.innerHTML = htmlText
+}
+
+async function init() {
+    loadTexts();
+}
+
+async function loadTexts() {
+    try {
+        const response = await getItems();
+        console.log('todos los textos', response)
+        printHtml(response)
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+/* 
+Version es5
+function printHtml() {}
+*/
