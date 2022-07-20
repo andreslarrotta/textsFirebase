@@ -43,3 +43,9 @@ input[type="text"] {
 .hidden {
     display: none;
 }
+
+.vista {
+    margin: 30px;
+    padding: 20px;
+    border: 1px solid #ccc;
+}

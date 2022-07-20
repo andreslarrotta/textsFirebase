@@ -7,6 +7,8 @@ let currentUser;
 const buttonLogin = document.getElementById("button-login");
 const buttonLogout = document.getElementById("button-logout");
 const textContainer = document.getElementById("texts-container");
+const acceso1Container = document.getElementById("acceso1-container");
+const acceso2Container = document.getElementById("acceso2-container");
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -38,13 +40,33 @@ Version es6
 */
 const printHtml = (texts) => {
     let htmlText = "";
+    let htmlTextAcceso1 = "";
+    let htmlTextAcceso2 = "";
+
     texts.forEach((text) => {
-        htmlText += `
-        <div>
-            <h1>${text.value}</h1>
-        </div>`
+
+        if (text.vista === 'acceso1') {
+            htmlTextAcceso1 += `
+            <div>
+                <h1>${text.value}</h1>
+            </div>`
+        } else if (text.vista === 'acceso2') {
+            htmlTextAcceso2 += `
+            <div>
+                <h1>${text.value}</h1>
+            </div>`
+        }
+        else {
+            htmlText += `
+            <div>
+                <h1>${text.value}</h1>
+            </div>`
+        }
     });
+
     textContainer.innerHTML = htmlText
+    acceso1Container.innerHTML = htmlTextAcceso1
+    acceso2Container.innerHTML = htmlTextAcceso2
 }
 
 async function init() {
