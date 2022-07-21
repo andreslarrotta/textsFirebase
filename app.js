@@ -1,6 +1,6 @@
 // jshint esversion: 8
 import { login, logout } from "./auth.js";
-import { getItems } from "./firestore.js";
+import { getItems, getPersonas } from "./firestore.js";
 
 let currentUser;
 
@@ -71,6 +71,7 @@ const printHtml = (texts) => {
 
 async function init() {
     loadTexts();
+    loadPersonas();
 }
 
 async function loadTexts() {
@@ -78,6 +79,32 @@ async function loadTexts() {
         const response = await getItems();
         console.log('todos los textos', response)
         printHtml(response)
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const printHtmlPersonas = (personas) => {
+    let contentPersonas = ''
+    personas.forEach((persona) => {
+        contentPersonas += `
+        <div class="persona">
+            <div>Nombre: <span>${persona.nombre}</span></div>
+            <div>Apellido: <span>${persona.apellido}</span></div>
+            <div>edad: <span>${persona.edad}</span></div>
+            <div>Mayor de edad ?: <span>${persona.mayorEdad === true ? 'SI' : 'NO es mayor'}</span></div>
+          </div>
+        `
+    })
+    document.querySelector('#personas_container').innerHTML = contentPersonas
+
+}
+
+async function loadPersonas() {
+    try {
+        const personasTotales = await getPersonas()
+        printHtmlPersonas(personasTotales)
+        console.log('Todas las personas son:', personasTotales)
     } catch (error) {
         console.error(error);
     }

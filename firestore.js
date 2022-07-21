@@ -17,3 +17,19 @@ export async function getItems() {
         throw new Error(error);
     }
 }
+
+export async function getPersonas() {
+    try {
+        let personasArray = []
+        const responsePersonas = await db.collection("personas").get();
+
+        responsePersonas.forEach((persona) => {
+            personasArray.push(persona.data())
+        })
+
+        return personasArray
+
+    } catch (error) {
+
+    }
+}
